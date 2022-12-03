@@ -31,6 +31,15 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Deploy Oxide|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>D:\rustservers\release\RustDedicated_Data\Managed\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
     <ItemGroup>
         <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
           <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\0Harmony.dll</HintPath>
@@ -38,16 +47,16 @@
         <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="Oxide.Core, Version=2.0.4006.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="Oxide.Core">
           <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\Oxide.Core.dll</HintPath>
         </Reference>
-        <Reference Include="Oxide.CSharp, Version=2.0.4046.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="Oxide.CSharp">
           <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\Oxide.CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="Oxide.References, Version=2.0.3779.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="Oxide.References">
           <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\Oxide.References.dll</HintPath>
         </Reference>
-        <Reference Include="Oxide.Rust, Version=2.0.5439.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="Oxide.Rust">
           <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\Oxide.Rust.dll</HintPath>
         </Reference>
         <Reference Include="System" />
@@ -71,4 +80,8 @@
     </Target>
     -->
 
+    <Target Name="CopyToHarmonyMods" AfterTargets="Build">
+        <Message Text="Copying DLL to Harmony Mods Builds folder" Importance="High" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="D:\rustservers\HarmonyBuilds" />
+    </Target>
 </Project>
