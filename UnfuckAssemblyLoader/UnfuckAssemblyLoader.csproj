@@ -59,6 +59,9 @@
         <Reference Include="Oxide.Rust">
           <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\Oxide.Rust.dll</HintPath>
         </Reference>
+        <Reference Include="Rust.Harmony">
+          <HintPath>D:\rustservers\release\RustDedicated_Data\Managed\Rust.Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -72,16 +75,10 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
 
     <Target Name="CopyToHarmonyMods" AfterTargets="Build">
         <Message Text="Copying DLL to Harmony Mods Builds folder" Importance="High" />
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="D:\rustservers\HarmonyBuilds" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="D:\rustservers\release\HarmonyMods" />
     </Target>
 </Project>
