@@ -69,9 +69,19 @@ namespace UnfuckAssemblyLoader
                     // Instead of reflecting out all the dumb shit I need to do ContainsKey, just try/catch this bit.
                     try
                     {
-                        dictAdd.Invoke(references, new[] { filename, compilerFile });
+                        dictAdd.Invoke(references, new[] {filename, compilerFile});
                     }
-                    catch (ArgumentException e) { } // Ignore it, it's already added. 
+                    catch (TargetInvocationException e)
+                    {
+                        if (e.InnerException is ArgumentException)
+                        {
+                            // This is fine, it just means the file is already in the hash.
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }  
                 }
             }
             
