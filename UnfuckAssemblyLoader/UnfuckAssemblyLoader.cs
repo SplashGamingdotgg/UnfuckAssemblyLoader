@@ -24,11 +24,6 @@ namespace UnfuckAssemblyLoader
         
         private static Assembly GetHarmonyAssembly(string name)
         {
-            foreach (var assembly in _harmonyLoaderAssemblies)
-            {
-                Debug.Log($"[UnfuckAssemblyLoader] Checking {assembly.Key} for {name}");
-            }
-            
             Assembly asm;
             return _harmonyLoaderAssemblies.TryGetValue(name, out asm) ? asm : null;
         }
@@ -70,7 +65,13 @@ namespace UnfuckAssemblyLoader
                 {
                     ConstructorInfo compilerFileConstructor = AccessTools.Constructor(_oxideCompilerFile, new []{ typeof(string), typeof(string) });
                     object compilerFile = compilerFileConstructor.Invoke(new object[] { harmonyModsDir, filename });
-                    dictAdd.Invoke(references, new[] { filename, compilerFile });
+                    
+                    // Instead of reflecting out all the dumb shit I need to do ContainsKey, just try/catch this bit.
+                    try
+                    {
+                        dictAdd.Invoke(references, new[] { filename, compilerFile });
+                    }
+                    catch (ArgumentException e) { } // Ignore it, it's already added. 
                 }
             }
             
